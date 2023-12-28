@@ -1,0 +1,7 @@
+{
+    "scripts": {
+      "start": "nodemon --watch src/app.ts src/app.ts",
+      "build": "tsc"
+    }
+  }
+  

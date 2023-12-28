@@ -1,0 +1,246 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "http://192.168.1.63:5100/",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/movie/addMovie": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+            {
+              "name": "title",
+              "in": "formData",
+              "description": "Movie title",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "publish_year",
+              "in": "formData",
+              "description": "Publish year",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "poster_image",
+              "in": "formData",
+              "description": "Poster image",
+              "required": true,
+              "type": "file"
+            }
+        ]
+      }
+    },
+    "/movie/movies": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "getMovie",
+            "in": "query",
+            "description": "Get movie details",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetMovie"
+            }
+          }
+        ]
+      }
+    },
+    "/movie/editMovie": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+          
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "formData",
+            "description": "Movie id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "Movie title",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "publish_year",
+            "in": "formData",
+            "description": "Publish year",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "poster_image",
+            "in": "formData",
+            "description": "Poster image",
+            "required": false,
+            "type": "file"
+          }
+      ],
+        "consumes": [
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/user/createUser": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }, 
+      "parameters": [
+        {
+          "name": "CreateUser",
+          "in": "body",
+          "description": "create new user",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CreateUser"
+          }
+        }
+      ]
+    },
+    "/user/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "User credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginCredentials"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "openapi": {
+      "type": "string",
+      "example": "3.0.0"
+    },
+    "info": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Movie API Documentation"
+        },
+        "version": {
+          "type": "string",
+          "example": "1.0.0"
+        },
+        "description": {
+          "type": "string",
+          "example": "API documentation for your Node.js TypeScript project"
+        }
+      }
+    },
+    "LoginCredentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "password"]
+    },
+    
+    "GetMovie":{
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string"
+        }
+      }
+    },
+  
+    "CreateUser":{
+      "type": "object",
+      "properties": {
+        "user_name":{
+          "type":"string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": ["user_name","email", "password"]
+
+    }
+  }
+}
